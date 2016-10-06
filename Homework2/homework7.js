@@ -6,7 +6,7 @@ for (var i = 1; i < x.length; i++) {
 	x[i]=prompt("Enter the coefficient");
 }
 for(var i=0;i<x.length;i++){
-k=k+x[i+1]*Math.pow(x,i);
+k=k+x[i+1]*Math.pow(x[0],i);
 }
 return x[0]*k;
 }
