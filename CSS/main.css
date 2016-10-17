@@ -1,0 +1,15 @@
+body p{
+	color: green;
+}
+.qwer{
+	color:red;
+}
+p.asd{
+	color:blue;
+}
+p#zxc{
+	color:yellow;
+}
+#zxc{
+	color:orange;
+}
