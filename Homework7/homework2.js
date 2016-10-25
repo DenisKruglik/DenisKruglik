@@ -27,6 +27,20 @@ var fr={
 		return s;
 	},
 	event: function(ev,el,f){
-		el.addEventListener(ev,f);
+		if(typeof el.addEventListener=="function"){
+			el.addEventListener(ev,f);
+		}else{
+			el.attachEvent(ev,f);
+		}
+	},
+	unevent: function(ev,el,f){
+		if(typeof el.removeEventListener=="function"){
+			el.removeEventListener(ev,f);
+		}else{
+			el.detachEvent(ev,f);
+		}
+	},
+	dispatch: function(ev,el){
+			el.dispatchEvent(ev);
 	}
 }
