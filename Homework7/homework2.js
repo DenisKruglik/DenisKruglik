@@ -41,6 +41,12 @@ var fr={
 		}
 	},
 	dispatch: function(ev,el){
-			el.dispatchEvent(ev);
+		if(typeof el.dispatchEvent=='function'){
+		var event=new Event(ev);
+		el.dispatchEvent(event);
+	}else{
+		var event=new Event(ev);
+		el.fireEvent(event);
+	}
 	}
 }
