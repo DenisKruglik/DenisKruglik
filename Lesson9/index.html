@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Instant calculator</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<body>
+<header>
+	<h1>Стоимость Вашего заказа</h1>
+</header>
+<div id="result"></div>
+<form>
+	<p>
+	<label>
+		<span>Количество цветов</span>
+		<input type="number" name="" id="amount">
+	</label><br>
+	</p>
+	<p>
+	<span>Выберите упаковку</span><br>
+	<label>
+		<input type="radio" name="flow" id="nobox">
+		<span>Нет упаковки</span>
+	</label><br>
+	<label>
+		<input type="radio" name="flow" id="paperbox">
+		<span>Бумажная</span>
+	</label><br>
+	<label>
+		<input type="radio" name="flow" id="foil">
+		<span>Фольга</span>
+	</label><br>
+	</p>
+	<p>
+	<span>Выберите способ доставки</span><br>
+	<select id="send">
+		<option value="0">Самовывоз</option>
+		<option value="3">Курьер</option>
+		<option value="4">Курьер к получателю</option>
+	</select>
+	</p>
+</form>
+<script type="text/javascript" src="myframework.js"></script>
+<script type="text/javascript" src="script.js"></script>
+</body>
+</html>
