@@ -48,7 +48,19 @@ var fr={
 		var event=new Event(ev);
 		el.fireEvent(event);
 	}
-	}
+	},
+	ajax: function(m,path,f){
+			var xhr=new XMLHttpRequest();
+			xhr.onreadystatechange=f;
+			xhr.open(m,path,true);
+			xhr.send();
+	},
+	get: function(path,f){
+			var xhr=new XMLHttpRequest();
+			xhr.onreadystatechange=f;
+			xhr.open("GET",path,true);
+			xhr.send();
+		}
 }, get={
 	byId: function(el){
 		return document.getElementById(el);
