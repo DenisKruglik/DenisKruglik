@@ -1,0 +1,26 @@
+[
+{
+	"title":"Табурет",
+	"price":"120",
+	"description":"Удобный табурет из махагона",
+	"img":"taburet.jpg"
+},
+{
+	"title":"Бревно",
+	"price":"50",
+	"description":"Лучшие лесоматериалы высшего качества",
+	"img":"brevno.jpg"
+},
+{
+	"title":"Голова оленя",
+	"price":"150",
+	"description":"Солидный элемент декора для любителей охоты",
+	"img":"deer.jpg"
+},
+{
+	"title":"Кефир",
+	"price":"20",
+	"description":"Просто свежий кефир",
+	"img":"kefir.jpg"
+}
+]
