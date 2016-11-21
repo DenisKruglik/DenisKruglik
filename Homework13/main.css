@@ -1,0 +1,43 @@
+#field{
+	width: 99%;
+	height: 500px;
+	border: 1px solid #000;
+	overflow-y: auto;
+	padding: 10px;
+	box-shadow: border-box;
+	background-color: #fff;
+}
+input,select{
+	width: 8%;
+	height: 30px;
+	margin: 10px;
+	border-radius: 10px;
+	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+#strong{
+	font-weight: bold;
+}
+#under{
+	text-decoration: underline;
+}
+#italic{
+	font-style: italic;
+}
+#size{
+	width: 3%;
+}
+#textstate{
+	display: inline-block;
+	font-size: 24px;
+	margin: 10px;
+	font-family: monospace;
+}
+#reset{
+	width: 10%;
+}
+#buttons{
+	text-align: center;
+}
+body{
+	background-color: rgba(240,241,242,0.7);
+}
