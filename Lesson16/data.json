@@ -1,0 +1,98 @@
+[
+	{
+		"name":"Arithmetic",
+		"description":"Test your knowledge of basic arithmetic",
+		"img":"arithmetic.jpg",
+		"time":"10",
+		"questions":[
+			{
+				"text":"2+2=?",
+				"answers":["3","4","5","6","7"],
+				"key":["1"]
+			},
+			{
+				"text":"2*2=?",
+				"answers":["3","4","5","6","7"],
+				"key":["1"]
+			},
+			{
+				"text":"2*3=?",
+				"answers":["3","4","5","6","7"],
+				"key":["3"]
+			},
+			{
+				"text":"12/2=?",
+				"answers":["3","4","5","6","7"],
+				"key":["3"]
+			},
+			{
+				"text":"7-3=?",
+				"answers":["3","4","5","6","7"],
+				"key":["1"]
+			},
+			{
+				"text":"2+2*2=?",
+				"answers":["3","4","5","6","7"],
+				"key":["3"]
+			},
+			{
+				"text":"2+2*3/6=?",
+				"answers":["3","4","5","6","7"],
+				"key":["0"]
+			},
+			{
+				"text":"(2+1)*2=?",
+				"answers":["3","4","5","6","7"],
+				"key":["3"]
+			},
+			{
+				"text":"2+3=3+2. Is this statement true?",
+				"answers":["Yes","No"],
+				"key":["0"]
+			},
+			{
+				"text":"2*3=3*2. Is this statement true?",
+				"answers":["Yes","No"],
+				"key":["0"]
+			}
+		]
+	},
+	{
+		"name":"English",
+		"description":"Test your knowledge of basic english vocabulary and grammar",
+		"img":"english.jpg",
+		"time":"5",
+		"questions":[
+			{
+				"text":"How is quacking bird called?",
+				"answers":["Pig","Dog","Duck","Cat","Pet"],
+				"key":["2"]
+			},
+			{
+				"text":"Choose the correctly formed sentence",
+				"answers":["Every day I wash the dishes","Every day I'm washing the dishes","Wash the dishes every day I","Dishes wash me every day","Dishes washes me every day"],
+				"key":["0"]
+			},
+			{
+				"text":"Choose the sentence with Future Simple tense",
+				"answers":["I love to eat","I'm reading a book","I was there","Have you ever been there?","I will meet my parents tomorrow"],
+				"key":["4"]
+			},
+			{
+				"text":"What comes the first in a general question to the predicate?",
+				"answers":["An article","Object","Subject","Auxillary verb","Special word"],
+				"key":["3"]
+			},
+			{
+				"text":"What is the capital of Great Britain?",
+				"answers":["Paris","London","Baranovichi","Nevada","Compton"],
+				"key":["1"]
+			},
+			{
+				"text":"Which types of questions exist in english grammar?",
+				"answers":["Special","Regular","General","Disjunctive","Stupid"],
+				"key":["0","2","3"]
+			}
+		]
+	}
+]
