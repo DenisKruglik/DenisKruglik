@@ -1,0 +1,109 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Registration</title>
+<link rel="stylesheet" type="text/css" href="reg.css">
+</head>
+<body>
+<h1>Регистрироваться на сайте</h1>
+<form id="form">
+<fieldset>
+<legend>Данные регистрации</legend>
+<div>
+<label>
+<span class="f">Придумайте никнейм</span>
+<input type="text" name="nick" placeholder="Введите свой никнейм" required/>
+</label>
+</div>
+<div>
+<label>
+<span class="f">Придумайте пароль</span>
+	<input type="password" name="pass" placeholder="******" required/>
+</label>
+</div>
+<div>
+<label>
+	<span class="f">Повторите пароль</span>
+	<input type="password" name="apass" placeholder="******" required/>
+</label>
+</div>
+</fieldset>
+<fieldset>
+	<legend>Общая информация</legend>
+	<div>
+	<label>
+		<span class="f">Ваш возраст</span>
+		<input type="number" name="age" min="1" required />
+	</label>
+	</div>
+	<div>
+	<label>
+	<span class="f">Ваша страна</span>
+		<select name="country" required>
+			<option>Беларусь</option>
+			<option>Россия</option>
+			<option>Украина</option>
+			<option>Казахстан</option>
+		</select>
+	</label>
+	</div>
+	<div>
+	<label>
+		<span class="f">Ваш город</span>
+		<input type="text" name="city" required/>
+	</label>
+	</div>
+</fieldset>
+<fieldset>
+	<legend>Параметры</legend>
+	<div>
+		<label>
+			<input type="radio" name="ageconf" id="r1" required/>
+			<span>Я старше 18-ти лет</span>
+		</label>
+	</div>
+	<div>
+		<label>
+			<input type="radio" name="ageconf" id="r2" required/>
+			<span>Я младше 18-ти лет</span>
+		</label>
+	</div>
+	<p></p>
+	<div>
+		<label>
+			<input type="checkbox" name="priv"/>
+			<span>Я позволяю другим пользователям просматривать мой профиль</span>
+		</label>
+	</div>
+	<div>
+		<label>
+			<input type="checkbox" name="mail"/>
+			<span>Я хочу получать рассылку от сайта</span>
+		</label>
+	</div>
+	<div>
+		<label>
+			<input type="checkbox" name="terms" required/>
+			<span>Я прочитал и принял <a href="terms.html">условия использования</a></span>
+		</label>
+		</div>
+</fieldset>
+<fieldset>
+	<legend>Выход</legend>
+	<span>
+	<label>
+		<input type="submit" name="submit" value="Регистрироваться!">
+	</label>
+	</span>
+<span>
+	<label>
+		<input type="reset" name="reset" value="Сбросить форму">
+	</label>
+</span>	
+</fieldset>
+</form>
+<script type="text/javascript" src="myframework.js"></script>
+<script type="text/javascript" src="script.js"></script>
+</body>
+</html>
