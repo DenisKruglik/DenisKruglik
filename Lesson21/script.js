@@ -190,39 +190,19 @@ var App={
 		fr.event('click',pic,App.generateSettings);
 	},
 	setSettingsEvents:function(el){
-		fr.event('input',widthinput,function(){
-			var a;
-			for (var i = 0; i < document.defaultView.getComputedStyle(el,'width').width.indexOf('p'); i++) {
-				a+=document.defaultView.getComputedStyle(el,'width').width[i];
-			}
-			widthinput.value=a;
+		fr.event('input',widthinput,function(){	
 			el.style.width=this.value+'px';
 			localStorage.text=field.innerHTML;
 		})
 		fr.event('input',heightinput,function(){
-			var a;
-			for (var i = 0; i < document.defaultView.getComputedStyle(el,'width').height.indexOf('p'); i++) {
-				a+=document.defaultView.getComputedStyle(el,'width').height[i];
-			}
-			heightinput.value=a;
 			el.style.height=this.value+'px';
 			localStorage.text=field.innerHTML;
 		})
 		fr.event('input',verticalmargin,function(){
-			var a;
-			for (var i = 0; i < document.defaultView.getComputedStyle(el,'width').marginTop.indexOf('p'); i++) {
-				a+=document.defaultView.getComputedStyle(el,'width').marginTop[i];
-			}
-			verticalmargin.value=a;
 			el.style.marginTop=this.value+'px';
 			localStorage.text=field.innerHTML;
 		})
 		fr.event('input',horizontalmargin,function(){
-			var a;
-			for (var i = 0; i < document.defaultView.getComputedStyle(el,'width').marginLeft.indexOf('p'); i++) {
-				a+=document.defaultView.getComputedStyle(el,'width').marginLeft[i];
-			}
-			horizontalmargin.value=a;
 			el.style.marginLeft=this.value+'px';
 			localStorage.text=field.innerHTML;
 		})

@@ -6,7 +6,7 @@ body{
 #field{
 	height: 500px;
 	border: 1px solid #000;
-	margin: 20px;
+	margin-bottom: 10px;
 	overflow: auto;
 }
 #html{
@@ -36,6 +36,9 @@ body{
 }
 .buttons > *:hover{
 	background-color: #636363;
+}
+.ffontsize:hover, .ffontname:hover{
+	background-color: initial;
 }
 .buttons{
 	margin-bottom: 1px;
