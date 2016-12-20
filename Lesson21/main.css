@@ -13,7 +13,6 @@ body{
 	display: block;
 	height: 500px;
 	border: 1px solid #000;
-	margin: 20px;
 	overflow: auto;
 }
 #settingwindow{
