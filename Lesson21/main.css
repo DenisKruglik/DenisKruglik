@@ -94,7 +94,7 @@ body{
 .buttons label{
 	display: inline-block;
 }
-*::not(#field, #html){
+body{
 	font-family: "Ropa Sans";
 }
 #field, #html{
