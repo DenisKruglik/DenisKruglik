@@ -25,9 +25,17 @@ body{
 .buttons > *{
 	min-width: 30px;
 	height: 30px;
-	background-size: 80%;
+	display: inline-block;
+	vertical-align: top;
+	background-size: 65%;
 	background-repeat: no-repeat;
 	background-position: center center;
+	border: 0;
+	margin-left: 1px;
+	cursor: pointer;
+}
+.buttons > *:hover{
+	background-color: #636363;
 }
 .buttons{
 	margin-bottom: 1px;
