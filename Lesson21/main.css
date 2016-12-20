@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css?family=Ropa+Sans');
+
+body{
+	margin: 0;
+}
+#field{
+	height: 500px;
+	border: 1px solid #000;
+	margin: 20px;
+	overflow: auto;
+}
+#html{
+	display: block;
+	height: 500px;
+	border: 1px solid #000;
+	margin: 20px;
+	overflow: auto;
+}
+#settingwindow{
+	border: 1px solid #000;
+}
+#settingwindow label{
+	display: block;
+}
+.buttons > *{
+	min-width: 30px;
+	height: 30px;
+	background-size: 80%;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+.buttons{
+	margin-bottom: 1px;
+}
+.ffile{
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	background-image: url(icons/folder.png);
+}
+#file{
+	display: none;
+}
+#bold{
+	background-image: url(icons/bold-text-option.png);
+}
+#italic{
+	background-image: url(icons/italicize-text.png);
+}
+#underline{
+	background-image: url(icons/underline-text-option.png);
+}
+#insertorderedlist{
+	background-image: url(icons/list.png);
+}
+#insertunorderedlist{
+	background-image: url(icons/list-1.png);
+}
+#justifyleft{
+	background-image: url(icons/justify.png);
+}
+#justifyright{
+	background-image: url(icons/justify-1.png);
+}
+#justifycenter{
+	background-image: url(icons/justify-2.png);
+}
+#indent{
+	background-image: url(icons/indent.png);
+}
+#outdent{
+	background-image: url(icons/outdent-symbol-variant.png);
+}
+#createlink{
+	background-image: url(icons/link.png);
+}
+#deletelink{
+	background-image: url(icons/disconnected-chains.png);
+}
+.ffontname, .ffontsize{
+	font-size: 17px;
+}
+.buttons label{
+	display: inline-block;
+}
+*::not(#field, #html){
+	font-family: "Ropa Sans";
+}
+#field, #html{
+	font-family: initial;
+}
