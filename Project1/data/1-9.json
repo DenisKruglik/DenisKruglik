@@ -1,0 +1,26 @@
+[
+	{
+		"pic":"images/User-icon.png",
+		"name":"Alex",
+		"rating":"4",
+		"text":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum dolores sapiente quidem minus ducimus aperiam perspiciatis atque a quos rerum non voluptate doloremque labore dolor maxime dolorum reprehenderit quisquam, adipisci."
+	},
+	{
+		"pic":"images/user-icon-woman.png",
+		"name":"Maria",
+		"rating":"5",
+		"text":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus laboriosam soluta aperiam dicta sapiente, tempore unde quam quod quis odio optio eius iste minus, voluptatibus quidem maiores sed itaque quia?"
+	},
+	{
+		"pic":"images/User-icon.png",
+		"name":"Jack",
+		"rating":"3",
+		"text":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum dolores sapiente quidem minus ducimus aperiam perspiciatis atque a quos rerum non voluptate doloremque labore dolor maxime dolorum reprehenderit quisquam, adipisci."
+	},
+	{
+		"pic":"images/user-icon-woman.png",
+		"name":"Anna",
+		"rating":"4",
+		"text":"Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus laboriosam soluta aperiam dicta sapiente, tempore unde quam quod quis odio optio eius iste minus, voluptatibus quidem maiores sed itaque quia?"
+	}
+]

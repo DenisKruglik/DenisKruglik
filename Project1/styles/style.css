@@ -1,0 +1,137 @@
+#map{
+	height: 860px;
+	overflow-y: auto;
+}
+img{
+	height: 100px;
+	margin-right: 10px;
+	float: left;
+}
+#back{
+	background-color: #fff;
+	width: 200px;
+	height: 60px;
+	font-size: 40px;
+	box-shadow: 20px 20px 0 #000;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 24px;
+	padding-top: 7px;
+	display: none;
+}
+.star{
+	width: 16px;
+	height: 16px;
+	float: none;
+}
+.comment{
+	overflow: hidden;
+}
+#info hr{
+	clear: both;
+}
+.avatar{
+	width: 64px;
+	height: 64px;
+}
+.comment_text{
+	margin-top: 10px;
+}
+#info{
+	overflow: auto;
+	max-height: 300px;
+}
+.bio{
+	overflow: hidden;
+}
+.comments{
+	margin-top: 10px;
+}
+textarea{
+	resize: none;
+	width: 450px;
+	height: 100px;
+	display: block;
+	margin-top: 10px;
+	float: left;
+}
+#send_comment{
+	margin-top: 10px;
+	margin-left: 10px;
+}
+.hide_comments{
+	display: none;
+	cursor: pointer;
+}
+.leave_comment{
+	display: none;
+}
+#canvas{
+	display: none;
+}
+a.show_comments{
+	cursor: pointer;
+}
+.avgMark img{
+	float: none;
+    width: 32px;
+    height: 32px;
+    margin-left: 10px;
+}
+.avgMark span{
+	font-size: 20px;
+    vertical-align: middle;
+}
+.avgMark{
+	margin: 5px;
+}
+
+
+
+nav{
+	background: #00AA72;
+	height: 70px;
+}
+/*nav ul{
+	float: left;
+}*/
+nav li{
+	display: inline-block;
+	list-style: none;
+	vertical-align: middle;
+	width: 8%;
+	text-align: center;
+}
+nav li a{
+	display: block;
+	font-size: 17px;
+	box-sizing: border-box;
+	text-decoration: none;
+	color: #60D4AE;
+	height: 70px;
+	padding-top: 15px;
+}
+nav li a:hover{
+	text-decoration: none;
+	color: #006E4A;
+	background-color: #35D4A0;
+}
+.logo{
+	height: 70px;
+	position: absolute;
+	top: 0;
+	right: 250px;
+}
+footer{
+	background: #DAE7E3;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	height: 50px;
+	width: 100%;
+	font-family: 'Bungee';
+}
+footer div{
+	padding-top: 10px;
+    padding-left: 45%;
+}
