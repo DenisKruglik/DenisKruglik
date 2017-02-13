@@ -67,7 +67,7 @@ var App={
 				lat: Number(x.lat),
 				lng: Number(x.lng)
 			});
-			map.setZoom(13);
+			map.setZoom(12);
 			$('#back').fadeIn(500);
 			$('#back').css('font-size','36px');
 			map.removeMarkers();
