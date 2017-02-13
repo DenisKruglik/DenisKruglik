@@ -1,0 +1,11 @@
+#a{
+	width: 100%;
+	height: 500px;
+	border: 1px solid #000;
+	overflow-y: auto;
+	padding: 10px;
+	box-shadow: border-box;
+}
+#text{
+	display: none;
+}

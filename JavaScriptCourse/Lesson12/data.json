@@ -1,0 +1,24 @@
+[{"name":"Alex",
+	"age":"17",
+	"address":"Ivanov str"
+},
+{
+	"name":"Maria",
+	"age":"13",
+	"address":"Prospect str"
+},
+{
+	"name":"Gregory",
+	"age":"90",
+	"address":"Grove str"
+},
+{
+	"name":"Tosin",
+	"age":"26",
+	"address":"Wall str"
+},
+{
+	"name":"Dimka",
+	"age":"40",
+	"address":"Doomskaya str"
+}]

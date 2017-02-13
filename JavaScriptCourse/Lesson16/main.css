@@ -1,0 +1,27 @@
+#list li{
+	display: inline-block;
+	margin-left: 10%;
+	margin-right: 10%;
+	width: 25%;
+	vertical-align: top;
+}
+#timer{
+	position: fixed;
+	right: 0;
+	top: 0;
+	width: 100px;
+}
+body{
+	font-family: sans-serif;
+}
+#list{
+	display: block;
+	padding-left: 11%;
+}
+img{
+	margin-bottom: 20px;
+	width: 100%;
+}
+#list span{
+	margin: 20px;
+}
