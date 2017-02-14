@@ -53,7 +53,7 @@ var App={
 		var content="<div id='info'>\
 			<h1>"+x.name+"</h1>\
 			<img src='"+x.pic+"'></img>\
-			<span>"+x.description+"</span><br>\
+			<figure>"+x.description+"</figure><br>\
 			<span>Интересных мест: "+x.places+"</span><br>\
 			<span>Посетителей: "+x.visitors+"</span>\
 			<div>\
@@ -83,10 +83,10 @@ var App={
 			<div class='bio'>\
 				<h1>"+x.name+"</h1>\
 				<img src='"+x.pic+"'>\
-				<span>"+x.description+"</span><br>\
-				<div class='avgMark'><span>"+x.mark+"</span><img src='images/star.png'></div>\
-				<a class='show_comments'>Показать отзывы ("+x.comments+")</a>\
-				<a class='hide_comments'>Скрыть отзывы</a>\
+				<figure>"+x.description+"</figure><br>\
+				<div class='avgMark'><img src='images/star.png'><span>"+x.mark+"</span></div>\
+				<input type='button' class='show_comments' value='Показать отзывы ("+x.comments+")'></input>\
+				<input type='button' class='hide_comments' value='Скрыть отзывы'></input>\
 			</div>\
 			<div class='comments'><hr></div>\
 			<div class='leave_comment'>\
@@ -102,17 +102,17 @@ var App={
 		App.setControlsEventListeners(x);
 	},
 	setControlsEventListeners:function(x){
-		$('#info a.show_comments').click(function(){
+		$('#info .show_comments').click(function(){
 			App.loadComments(x);
 			App.setStarsEventListeners();
-			$('#info a.show_comments').hide();
-			$('#info a.hide_comments').show();
+			$('#info .show_comments').hide();
+			$('#info .hide_comments').show();
 			$('#info div.leave_comment').show();
 		});
-		$('#info a.hide_comments').click(function(){
+		$('#info .hide_comments').click(function(){
 			$('div.comments').html('<hr>');
-			$('#info a.show_comments').show();
-			$('#info a.hide_comments').hide();
+			$('#info .show_comments').show();
+			$('#info .hide_comments').hide();
 			$('#info div.leave_comment').hide();
 		});
 		$('#send_comment').click(function(){

@@ -47,6 +47,9 @@ img{
 .comments{
 	margin-top: 10px;
 }
+.rating img{
+	cursor: pointer;
+}
 textarea{
 	resize: none;
 	width: 450px;
@@ -69,7 +72,7 @@ textarea{
 #canvas{
 	display: none;
 }
-a.show_comments{
+.show_comments{
 	cursor: pointer;
 }
 .avgMark img{
@@ -92,24 +95,22 @@ nav{
 	background: #00AA72;
 	height: 70px;
 }
-/*nav ul{
-	float: left;
-}*/
 nav li{
 	display: inline-block;
 	list-style: none;
 	vertical-align: middle;
-	width: 8%;
 	text-align: center;
+	box-sizing: padding-box;
 }
 nav li a{
 	display: block;
 	font-size: 17px;
-	box-sizing: border-box;
 	text-decoration: none;
 	color: #60D4AE;
 	height: 70px;
-	padding-top: 15px;
+	padding-top: 20px;
+	padding-right: 10px;
+	padding-left: 10px;
 }
 nav li a:hover{
 	text-decoration: none;
@@ -133,4 +134,21 @@ footer{
 footer div{
 	padding-top: 10px;
     padding-left: 45%;
+}
+a:visited{
+	text-decoration: none;
+	color: #006E4A;
+}
+input[type=button]{
+	background: #fff;
+    box-shadow: none;
+    border: 1px solid #00AA72;
+    color: #00AA72;
+    padding: 5px;
+}
+input[type=button]:hover{
+	background: #35D4A0;
+}
+h1{
+	margin-top: 0;
 }
