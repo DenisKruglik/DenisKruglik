@@ -1,5 +1,5 @@
 #map{
-	height: 860px;
+	height: 90vh;
 	overflow-y: auto;
 }
 img{
@@ -79,7 +79,6 @@ textarea{
 	float: none;
     width: 32px;
     height: 32px;
-    margin-left: 10px;
 }
 .avgMark span{
 	font-size: 20px;
@@ -91,26 +90,34 @@ textarea{
 
 
 
+body{
+	height: 100vh;
+	overflow: hidden;
+}
 nav{
 	background: #00AA72;
-	height: 70px;
+	height: 7vh;
+}
+nav ul{
+	height: 100%;
 }
 nav li{
 	display: inline-block;
 	list-style: none;
 	vertical-align: middle;
 	text-align: center;
-	box-sizing: padding-box;
+	height: 100%;
 }
 nav li a{
 	display: block;
 	font-size: 17px;
 	text-decoration: none;
 	color: #60D4AE;
-	height: 70px;
+	height: 100%;
 	padding-top: 20px;
 	padding-right: 10px;
 	padding-left: 10px;
+	transition: all 0.5s ease-out;
 }
 nav li a:hover{
 	text-decoration: none;
@@ -118,15 +125,14 @@ nav li a:hover{
 	background-color: #35D4A0;
 }
 .logo{
-	height: 70px;
+	height: 5vh;
 	position: absolute;
-	top: 0;
-	right: 250px;
+	top: 1vh;
+	right: 10%;
 }
 footer{
 	background: #DAE7E3;
-	position: absolute;
-	height: 50px;
+	height: 5vh;
 	width: 100%;
 	font-family: 'Bungee';
 	font-size: 12px;
@@ -145,10 +151,52 @@ input[type=button]{
     border: 1px solid #00AA72;
     color: #00AA72;
     padding: 5px;
+    transition: all 0.5s ease-out;
 }
 input[type=button]:hover{
 	background: #35D4A0;
 }
 h1{
 	margin-top: 0;
+}
+#routeinfo{
+	background: white;
+	border: 1px solid black;
+	display: table;
+	padding: 10px;
+	position: absolute;
+	z-index: 5;
+	right: 0;
+}
+#routeinfo div{
+	display: table-row;
+	
+}
+#routeinfo div *{
+	display: table-cell;
+	padding-left: 7px;
+	padding-right: 7px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+#error{
+	position: absolute;
+    z-index: 5;
+    background: bisque;
+    padding: 5px;
+    border: 1px solid cadetblue;
+    border-radius: 10px;
+    display: none;
+}
+
+@media screen and (max-width: 800px){
+	header{
+		height: 10vh;
+	}
+	#map{
+		height: 95vh;
+	}
+	footer{
+		height: 10vh;
+	}
 }

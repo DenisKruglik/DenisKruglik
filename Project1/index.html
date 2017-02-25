@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="styles/bootstrap.css">
 	<link rel="stylesheet" href="styles/bootstrap-theme.css">
 	<link rel="stylesheet" type="text/css" href="styles/style.css">
+	<link rel="shortcut icon" type="image/png" href="images/Hypnotoad.png">
 </head>
 <body>
 	<header>
@@ -21,6 +22,18 @@
 		</nav>
 	</header>
 	<main>
+		<div id="error">Задайте пункты отправления и прибытия левым и правым кликом по месту соответственно</div>
+		<div id="routeinfo">
+			<div>
+				<span>Отправной пункт</span>
+				<input type="text" readonly id="from">
+			</div>
+			<div>
+				<span>Пункт назначения</span>
+				<input type="text" readonly id="to">
+			</div>
+			<input type="button" value="Провести маршрут" id="drawroute">
+		</div>
 		<div class="map" id="map"></div>
 	</main>
 	<footer>

@@ -4,11 +4,14 @@ var App={
 		App.addBackButton();
 		App.initInfoWindow();
 		App.loadCityMarkers();
+		App.setRouteDrawingEventListener();
 	},
 	glVar:{
 		infowindow: "",
 		max_rating: 5,
-		rating: 0
+		rating: 0,
+		from: "",
+		to: ""
 	},
 	initMap:function(){
 		map = new GMaps({
@@ -39,6 +42,7 @@ var App={
 					map.removeMarkers();
 					$('#back').fadeOut(500);
 					App.loadCityMarkers();
+					App.cleanRouteMemory();
 				}
 			}
 		});
@@ -58,6 +62,8 @@ var App={
 			<span>Посетителей: "+x.visitors+"</span>\
 			<div>\
 				<input type='button' id='gotoplace' value='Перейти к месту'>\
+				<input type='button' id='setA' value='Назначить как точку отправления'></input>\
+				<input type='button' id='setB' value='Назначить как точку назначения'></input>\
 			</div>\
 		</div>";
 		App.glVar.infowindow.setContent(content);
@@ -72,7 +78,16 @@ var App={
 			$('#back').css('font-size','36px');
 			map.removeMarkers();
 			App.loadPlaceMarkers(x);
-		})
+			App.cleanRouteMemory();
+		});
+		$('#setA').click(function(){
+			App.glVar.from = [x.lat, x.lng];
+			$('#from').val(x.name);
+		});
+		$('#setB').click(function(){
+			App.glVar.to = [x.lat, x.lng];
+			$('#to').val(x.name);
+		});
 	},
 	callPlaceInfoWindow:function(x,marker){
 		var star="";
@@ -87,6 +102,8 @@ var App={
 				<div class='avgMark'><img src='images/star.png'><span>"+x.mark+"</span></div>\
 				<input type='button' class='show_comments' value='Показать отзывы ("+x.comments+")'></input>\
 				<input type='button' class='hide_comments' value='Скрыть отзывы'></input>\
+				<input type='button' id='setA' value='Назначить как точку отправления'></input>\
+				<input type='button' id='setB' value='Назначить как точку назначения'></input>\
 			</div>\
 			<div class='comments'><hr></div>\
 			<div class='leave_comment'>\
@@ -120,7 +137,15 @@ var App={
 			$('#comment_input').val("");
 			App.glVar.rating=0;
 			App.setAllBlack();
-		})
+		});
+		$('#setA').click(function(){
+			App.glVar.from = [x.lat, x.lng];
+			$('#from').val(x.name);
+		});
+		$('#setB').click(function(){
+			App.glVar.to = [x.lat, x.lng];
+			$('#to').val(x.name);
+		});
 	},
 	setStarsEventListeners:function(){
 		$('.toselect').click(function(){
@@ -232,6 +257,33 @@ var App={
 		context.fill();
 		var result=canvas.toDataURL("image/png");	
 		return result;
+	},
+	setRouteDrawingEventListener:function(){
+		$('#drawroute').click(function(){
+			if ($('#from').val() == "" || $('#to').val() == "") {
+				$('#error').fadeIn(500);
+				var a = setTimeout(function(){
+					$('#error').fadeOut(500);
+				},3000);
+			}else{
+				map.cleanRoute();
+				map.drawRoute({
+					origin: App.glVar.from,
+					destination: App.glVar.to,
+					travelMode: 'driving',
+					strokeColor: '#1240AB',
+					strokeOpacity: 1,
+					strokeWeight: 6
+				});
+			}
+		})
+	},
+	cleanRouteMemory:function(){
+		map.cleanRoute();
+		App.glVar.from = "";
+		App.glVar.to = "";
+		$('#from').val("");
+		$('#to').val("");
 	}
 }
 App.init();
