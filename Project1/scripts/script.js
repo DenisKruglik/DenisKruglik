@@ -4,14 +4,13 @@ var App={
 		App.addBackButton();
 		App.initInfoWindow();
 		App.loadCityMarkers();
-		App.setRouteDrawingEventListener();
+		App.setRouteCleaningEventListener();
 	},
 	glVar:{
 		infowindow: "",
 		max_rating: 5,
 		rating: 0,
-		from: "",
-		to: ""
+		routePoints: []
 	},
 	initMap:function(){
 		map = new GMaps({
@@ -62,8 +61,7 @@ var App={
 			<span>Посетителей: "+x.visitors+"</span>\
 			<div>\
 				<input type='button' id='gotoplace' value='Перейти к месту'>\
-				<input type='button' id='setA' value='Назначить как точку отправления'></input>\
-				<input type='button' id='setB' value='Назначить как точку назначения'></input>\
+				<input type='button' id='setA' value='Добавить к маршруту'></input>\
 			</div>\
 		</div>";
 		App.glVar.infowindow.setContent(content);
@@ -81,12 +79,9 @@ var App={
 			App.cleanRouteMemory();
 		});
 		$('#setA').click(function(){
-			App.glVar.from = [x.lat, x.lng];
-			$('#from').val(x.name);
-		});
-		$('#setB').click(function(){
-			App.glVar.to = [x.lat, x.lng];
-			$('#to').val(x.name);
+			App.glVar.routePoints.push([x.lat, x.lng]);
+			App.buildRoute();
+			App.addToRouteList(x);
 		});
 	},
 	callPlaceInfoWindow:function(x,marker){
@@ -102,8 +97,7 @@ var App={
 				<div class='avgMark'><img src='images/star.png'><span>"+x.mark+"</span></div>\
 				<input type='button' class='show_comments' value='Показать отзывы ("+x.comments+")'></input>\
 				<input type='button' class='hide_comments' value='Скрыть отзывы'></input>\
-				<input type='button' id='setA' value='Назначить как точку отправления'></input>\
-				<input type='button' id='setB' value='Назначить как точку назначения'></input>\
+				<input type='button' id='setA' value='Добавить к маршруту'></input>\
 			</div>\
 			<div class='comments'><hr></div>\
 			<div class='leave_comment'>\
@@ -139,12 +133,9 @@ var App={
 			App.setAllBlack();
 		});
 		$('#setA').click(function(){
-			App.glVar.from = [x.lat, x.lng];
-			$('#from').val(x.name);
-		});
-		$('#setB').click(function(){
-			App.glVar.to = [x.lat, x.lng];
-			$('#to').val(x.name);
+			App.glVar.routePoints.push([x.lat, x.lng]);
+			App.buildRoute();
+			App.addToRouteList(x);
 		});
 	},
 	setStarsEventListeners:function(){
@@ -258,32 +249,32 @@ var App={
 		var result=canvas.toDataURL("image/png");	
 		return result;
 	},
-	setRouteDrawingEventListener:function(){
-		$('#drawroute').click(function(){
-			if ($('#from').val() == "" || $('#to').val() == "") {
-				$('#error').fadeIn(500);
-				var a = setTimeout(function(){
-					$('#error').fadeOut(500);
-				},3000);
-			}else{
-				map.cleanRoute();
+	buildRoute: function(){
+		if (App.glVar.routePoints.length > 1) {
+			for (var i = 0; i < App.glVar.routePoints.length - 1; i++) {
 				map.drawRoute({
-					origin: App.glVar.from,
-					destination: App.glVar.to,
+					origin: App.glVar.routePoints[i],
+					destination: App.glVar.routePoints[i+1],
 					travelMode: 'driving',
-					strokeColor: '#1240AB',
+					strokeColor: 'rgb('+(18+i*20)+','+(64+i*20)+','+(171+i*20)+')',
 					strokeOpacity: 1,
 					strokeWeight: 6
 				});
 			}
+		}
+	},
+	addToRouteList: function(x){
+		$('.routePoints').append($('<li>'+x.name+'</li>'));
+	},
+	setRouteCleaningEventListener: function(){
+		$('#cleanroute').click(function(){
+			App.cleanRouteMemory();
 		})
 	},
 	cleanRouteMemory:function(){
 		map.cleanRoute();
-		App.glVar.from = "";
-		App.glVar.to = "";
-		$('#from').val("");
-		$('#to').val("");
+		App.glVar.routePoints = [];
+		$('.routePoints').html("");
 	}
 }
 App.init();

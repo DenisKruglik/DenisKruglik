@@ -162,31 +162,10 @@ h1{
 #routeinfo{
 	background: white;
 	border: 1px solid black;
-	display: table;
 	padding: 10px;
 	position: absolute;
 	z-index: 5;
 	right: 0;
-}
-#routeinfo div{
-	display: table-row;
-	
-}
-#routeinfo div *{
-	display: table-cell;
-	padding-left: 7px;
-	padding-right: 7px;
-	padding-top: 5px;
-	padding-bottom: 5px;
-}
-#error{
-	position: absolute;
-    z-index: 5;
-    background: bisque;
-    padding: 5px;
-    border: 1px solid cadetblue;
-    border-radius: 10px;
-    display: none;
 }
 
 @media screen and (max-width: 800px){

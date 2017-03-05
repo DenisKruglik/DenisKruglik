@@ -22,17 +22,12 @@
 		</nav>
 	</header>
 	<main>
-		<div id="error">Задайте пункты отправления и прибытия левым и правым кликом по месту соответственно</div>
 		<div id="routeinfo">
-			<div>
-				<span>Отправной пункт</span>
-				<input type="text" readonly id="from">
-			</div>
-			<div>
-				<span>Пункт назначения</span>
-				<input type="text" readonly id="to">
-			</div>
-			<input type="button" value="Провести маршрут" id="drawroute">
+			<span>Точки маршрута:</span>
+			<p>
+				<ul class="routePoints"></ul>
+			</p>
+			<input type="button" value="Очистить маршрут" id="cleanroute">
 		</div>
 		<div class="map" id="map"></div>
 	</main>
