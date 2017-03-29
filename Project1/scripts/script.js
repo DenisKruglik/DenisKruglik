@@ -1,30 +1,85 @@
 var App={
 	init:function(){
+		App.prepareLocalStorage();
 		App.initMap();
 		App.addBackButton();
 		App.initInfoWindow();
-		App.loadCityMarkers();
+		if (App.glVar.currentLocation == 'country') {
+			App.loadCityMarkers();
+		}else{
+			App.loadPlaceMarkers(App.glVar.currentLocation);
+		}
 		App.setRouteCleaningEventListener();
 	},
 	glVar:{
 		infowindow: "",
 		max_rating: 5,
 		rating: 0,
-		routePoints: []
+		citiesRoutePoints: [],
+		placesRoutePoints: [[],[],[],[],[],[]],
+		currentLocation: "country"
+	},
+	prepareLocalStorage: function(){
+		if (typeof window.localStorage.citiesRoutePoints == 'undefined') {
+			window.localStorage.citiesRoutePoints = '[]';
+		}else{
+			App.glVar.citiesRoutePoints = JSON.parse(window.localStorage.citiesRoutePoints);
+		}
+
+		if (typeof window.localStorage.placesRoutePoints == 'undefined') {
+			window.localStorage.placesRoutePoints = '[[],[],[],[],[],[]]';
+		}else{
+			App.glVar.placesRoutePoints = JSON.parse(window.localStorage.placesRoutePoints);
+		}
+
+		if (typeof window.localStorage.currentLocation == 'undefined') {
+			window.localStorage.currentLocation = 'country';
+		}else if (window.localStorage.currentLocation != 'country') {
+			App.glVar.currentLocation = JSON.parse(window.localStorage.currentLocation);
+		}
 	},
 	initMap:function(){
 		map = new GMaps({
 			div: '#map',
-			zoom: 7,
-			lat: 53.9,
-			lng: 27.559,
+			zoom: App.glVar.currentLocation == 'country' ? 7 : 12,
+			lat: App.glVar.currentLocation == 'country' ? 53.9 : App.glVar.currentLocation.lat,
+			lng: App.glVar.currentLocation == 'country' ? 27.559 : App.glVar.currentLocation.lng,
 			disableDoubleClickZoom: true,
 			draggable: false,
 			keyboardShortcuts: false,
 			scrollwheel: false,
 			disableDefaultUI: true,
-			noClear: true
+			noClear: true,
+			tilesloaded: function(){
+				App.doOnTilesLoaded();
+			}
 		});
+	},
+	doOnTilesLoaded: function(){
+		if (App.glVar.currentLocation == "country") {
+			App.buildRoute(App.glVar.citiesRoutePoints);
+			App.clearRouteList();
+			App.fillRouteList(App.glVar.citiesRoutePoints);
+		}else{
+			App.buildRoute(App.glVar.placesRoutePoints[App.glVar.currentLocation.id - 1]);
+			App.clearRouteList();
+			App.fillRouteList(App.glVar.placesRoutePoints[App.glVar.currentLocation.id - 1]);
+			$('#back').show();
+			$('#back').css('font-size','36px');
+		}
+	},
+	fillRouteList: function(x){
+		x.forEach(function(item){
+			$('.routePoints').append($('<i class="fa fa-long-arrow-down" aria-hidden="true"></i><li>'+item.name+'</li>'));
+			if (App.glVar.currentLocation == 'country') {
+				$('.routePoints li:last-child').click(function(){
+					App.goToPlace(item);
+				})
+			}
+		});
+		if (App.glVar.currentLocation == 'country') {
+			$('.routePoints li').addClass('city-reference');
+		}
 	},
 	addBackButton:function(){
 		map.addControl({
@@ -33,18 +88,24 @@ var App={
 			position: "LEFT_TOP",
 			events: {
 				click:function(){
-					map.setCenter({
-						lat: 53.9,
-						lng: 27.559
-					});
-					map.setZoom(7);
-					map.removeMarkers();
-					$('#back').fadeOut(500);
-					App.loadCityMarkers();
-					App.cleanRouteMemory();
+					App.goBack();
 				}
 			}
 		});
+	},
+	goBack: function(){
+		map.setCenter({
+			lat: 53.9,
+			lng: 27.559
+		});
+		map.setZoom(7);
+		map.removeMarkers();
+		$('#back').fadeOut(500);
+		App.loadCityMarkers();
+		map.cleanRoute();
+		App.glVar.currentLocation = "country";
+		window.localStorage.currentLocation = 'country';
+		App.clearRouteList();
 	},
 	initInfoWindow:function(x){
 		var infowindow=new google.maps.InfoWindow({
@@ -55,34 +116,61 @@ var App={
 	callCityInfoWindow:function(x,marker){
 		var content="<div id='info'>\
 			<h1>"+x.name+"</h1>\
-			<img src='"+x.pic+"'></img>\
-			<figure>"+x.description+"</figure><br>\
-			<span>Интересных мест: "+x.places+"</span><br>\
-			<span>Посетителей: "+x.visitors+"</span>\
-			<div>\
+			<figure>\
+				<img src='"+x.pic+"'></img>\
+				<figcaption>"+x.description+"</figcaption><br>\
+				<span>Интересных мест: "+x.places+"</span><br>\
+				<span>Посетителей: "+x.visitors+"</span>\
+			</figure>\
+			<div class='buttons'>\
 				<input type='button' id='gotoplace' value='Перейти к месту'>\
 				<input type='button' id='setA' value='Добавить к маршруту'></input>\
 			</div>\
 		</div>";
 		App.glVar.infowindow.setContent(content);
 		App.glVar.infowindow.open(map,marker);
+		App.setCitiesControlsEventListeners(x);
+	},
+	setCitiesControlsEventListeners: function(x){
 		$('#gotoplace').click(function(){
-			map.setCenter({
-				lat: Number(x.lat),
-				lng: Number(x.lng)
-			});
-			map.setZoom(12);
-			$('#back').fadeIn(500);
-			$('#back').css('font-size','36px');
-			map.removeMarkers();
-			App.loadPlaceMarkers(x);
-			App.cleanRouteMemory();
+			App.goToPlace(x);
 		});
 		$('#setA').click(function(){
-			App.glVar.routePoints.push([x.lat, x.lng]);
-			App.buildRoute();
-			App.addToRouteList(x);
+			App.addCitiesRoutePoint(x);
 		});
+	},
+	addCitiesRoutePoint: function(x){
+		var last = App.glVar.citiesRoutePoints.length - 1;
+		if (typeof App.glVar.citiesRoutePoints[last] != 'undefined') {
+			if (App.glVar.citiesRoutePoints[last].name != x.name) {
+				App.glVar.citiesRoutePoints.push(x);
+				App.rememberCityInfo(x);
+				App.buildRoute(App.glVar.citiesRoutePoints);
+				App.clearRouteList();
+				App.fillRouteList(App.glVar.citiesRoutePoints);
+			}
+		}else{
+			App.glVar.citiesRoutePoints.push(x);
+			App.rememberCityInfo(x);
+			App.buildRoute(App.glVar.citiesRoutePoints);
+			App.clearRouteList();
+			App.fillRouteList(App.glVar.citiesRoutePoints);
+		}
+	},
+	goToPlace: function(x){
+		map.setCenter({
+			lat: Number(x.lat),
+			lng: Number(x.lng)
+		});
+		map.setZoom(12);
+		$('#back').fadeIn(500);
+		$('#back').css('font-size','36px');
+		map.removeMarkers();
+		map.cleanRoute();
+		App.loadPlaceMarkers(x);
+		App.clearRouteList();
+		App.glVar.currentLocation = x;
+		window.localStorage.currentLocation = JSON.stringify(x);
 	},
 	callPlaceInfoWindow:function(x,marker){
 		var star="";
@@ -92,12 +180,16 @@ var App={
 		var content="<div id='info'>\
 			<div class='bio'>\
 				<h1>"+x.name+"</h1>\
-				<img src='"+x.pic+"'>\
-				<figure>"+x.description+"</figure><br>\
-				<div class='avgMark'><img src='images/star.png'><span>"+x.mark+"</span></div>\
-				<input type='button' class='show_comments' value='Показать отзывы ("+x.comments+")'></input>\
-				<input type='button' class='hide_comments' value='Скрыть отзывы'></input>\
-				<input type='button' id='setA' value='Добавить к маршруту'></input>\
+				<figure>\
+					<img src='"+x.pic+"'>\
+					<figcaption>"+x.description+"</figcaption><br>\
+					<div class='avgMark'><img src='images/star.png'><span>"+x.mark+"</span></div>\
+				</figure>\
+				<div class='buttons'>\
+					<input type='button' class='show_comments' value='Показать отзывы ("+x.comments+")'></input>\
+					<input type='button' class='hide_comments' value='Скрыть отзывы'></input>\
+					<input type='button' id='setStart' value='Добавить к маршруту'></input>\
+				</div>\
 			</div>\
 			<div class='comments'><hr></div>\
 			<div class='leave_comment'>\
@@ -110,54 +202,85 @@ var App={
 		</div>";
 		App.glVar.infowindow.setContent(content);
 		App.glVar.infowindow.open(map,marker);
-		App.setControlsEventListeners(x);
+		App.setPlacesControlsEventListeners(x);
 	},
-	setControlsEventListeners:function(x){
+	setPlacesControlsEventListeners:function(x){
 		$('#info .show_comments').click(function(){
-			App.loadComments(x);
-			App.setStarsEventListeners();
-			$('#info .show_comments').hide();
-			$('#info .hide_comments').show();
-			$('#info div.leave_comment').show();
+			App.showComments(x);
 		});
 		$('#info .hide_comments').click(function(){
-			$('div.comments').html('<hr>');
-			$('#info .show_comments').show();
-			$('#info .hide_comments').hide();
-			$('#info div.leave_comment').hide();
+			App.hideComments();
 		});
 		$('#send_comment').click(function(){
-			App.addComment(App.glVar.rating,$('#comment_input').val());
-			$('#comment_input').val("");
-			App.glVar.rating=0;
-			App.setAllBlack();
+			App.sendComment();
 		});
-		$('#setA').click(function(){
-			App.glVar.routePoints.push([x.lat, x.lng]);
-			App.buildRoute();
-			App.addToRouteList(x);
+		$('#setStart').click(function(){
+			App.addPlacesRoutePoint(x);
 		});
+	},
+	showComments: function(x){
+		App.loadComments(x);
+		App.setStarsEventListeners();
+		$('#info .show_comments').hide();
+		$('#info .hide_comments').show();
+		$('#info div.leave_comment').show();
+	},
+	hideComments: function(){
+		$('div.comments').html('<hr>');
+		$('#info .show_comments').show();
+		$('#info .hide_comments').hide();
+		$('#info div.leave_comment').hide();
+	},
+	sendComment: function(){
+		App.addComment(App.glVar.rating,$('#comment_input').val());
+		$('#comment_input').val("");
+		App.glVar.rating=0;
+		App.setAllBlack();
+	},
+	addPlacesRoutePoint: function(x){
+		var last = App.glVar.placesRoutePoints[App.glVar.currentLocation.id - 1].length - 1;
+		if (typeof App.glVar.placesRoutePoints[App.glVar.currentLocation.id - 1][last] != 'undefined') {
+			if (App.glVar.placesRoutePoints[App.glVar.currentLocation.id - 1][last].name != x.name) {
+				App.glVar.placesRoutePoints[App.glVar.currentLocation.id - 1].push(x);
+				App.rememberPlaceInfo(x);
+				App.buildRoute(App.glVar.placesRoutePoints[App.glVar.currentLocation.id - 1]);
+				App.clearRouteList();
+				App.fillRouteList(App.glVar.placesRoutePoints[App.glVar.currentLocation.id - 1]);
+			}
+		}else{
+			App.glVar.placesRoutePoints[App.glVar.currentLocation.id - 1].push(x);
+			App.rememberPlaceInfo(x);
+			App.buildRoute(App.glVar.placesRoutePoints[App.glVar.currentLocation.id - 1]);
+			App.clearRouteList();
+			App.fillRouteList(App.glVar.placesRoutePoints[App.glVar.currentLocation.id - 1]);
+		}
 	},
 	setStarsEventListeners:function(){
 		$('.toselect').click(function(){
-			App.setAllBlack();
-			App.glVar.rating=Number(this.getAttribute('id')[11]);
-			var k=this.getAttribute('id')[11];
-			for (var j = 0; j < k; j++) {
-				$('#rate_button'+(j+1))[0].src="images/star.png";
-				$('#rate_button'+(j+1)).off('mouseout',App.setBlack);
-			}
-			App.setBlack(this);
+			App.doOnStarClick(this);
 		});
 		$('.toselect').mouseover(function(){
-			var k=this.getAttribute('id')[11];
-			for (var j = 0; j < k; j++) {
-				$('#rate_button'+(j+1))[0].src="images/star.png";
-			}
+			App.doOnMouseOverStars(this);
 		});
 		$('.toselect').mouseout(function(){
 			App.setBlack(this);
 		});
+	},
+	doOnStarClick: function(x){
+		App.setAllBlack();
+		App.glVar.rating=Number(x.getAttribute('id')[11]);
+		var k=x.getAttribute('id')[11];
+		for (var j = 0; j < k; j++) {
+			$('#rate_button'+(j+1))[0].src="images/star.png";
+			$('#rate_button'+(j+1)).off('mouseout',App.setBlack);
+		}
+		App.setBlack(x);
+	},
+	doOnMouseOverStars: function(x){
+		var k=x.getAttribute('id')[11];
+		for (var j = 0; j < k; j++) {
+			$('#rate_button'+(j+1))[0].src="images/star.png";
+		}
 	},
 	setBlack:function(el){
 		var k=el.getAttribute('id')[11];
@@ -249,22 +372,34 @@ var App={
 		var result=canvas.toDataURL("image/png");	
 		return result;
 	},
-	buildRoute: function(){
-		if (App.glVar.routePoints.length > 1) {
-			for (var i = 0; i < App.glVar.routePoints.length - 1; i++) {
-				map.drawRoute({
-					origin: App.glVar.routePoints[i],
-					destination: App.glVar.routePoints[i+1],
-					travelMode: 'driving',
-					strokeColor: 'rgb('+(18+i*20)+','+(64+i*20)+','+(171+i*20)+')',
-					strokeOpacity: 1,
-					strokeWeight: 6
-				});
+	buildRoute: function(x){
+		if (x.length > 1) {
+			App.loadingAnimationTurn();
+			map.cleanRoute();
+			var waypoints = [];
+			console.log(x);
+			for (var i = 1; i < x.length - 1; i++) {
+				myLatLng = new google.maps.LatLng({lat: Number(x[i].lat), lng: Number(x[i].lng)});
+				waypoints.push({location: myLatLng, stopover: true});
 			}
+			console.log(waypoints);
+			map.drawRoute({
+				origin: [x[0].lat, x[0].lng],
+				destination: [x[x.length - 1].lat, x[x.length - 1].lng],
+				waypoints: waypoints,
+				travelMode: 'driving',
+				strokeColor: 'rgb(18, 64, 171)',
+				strokeOpacity: 1,
+				strokeWeight: 4,
+				callback: App.loadingAnimationTurn(),
+				error: (function(err){
+					console.log(err);
+				})()
+			});
 		}
 	},
-	addToRouteList: function(x){
-		$('.routePoints').append($('<li>'+x.name+'</li>'));
+	clearRouteList: function(){
+		$('.routePoints').html("");
 	},
 	setRouteCleaningEventListener: function(){
 		$('#cleanroute').click(function(){
@@ -272,9 +407,38 @@ var App={
 		})
 	},
 	cleanRouteMemory:function(){
-		map.cleanRoute();
-		App.glVar.routePoints = [];
-		$('.routePoints').html("");
+		if (App.glVar.currentLocation == 'country') {
+			map.cleanRoute();
+			App.glVar.citiesRoutePoints = [];
+			App.forgetCityInfo();
+			App.clearRouteList();
+		}else{
+			map.cleanRoute();
+			App.glVar.placesRoutePoints[App.glVar.currentLocation.id - 1] = [];
+			App.forgetPlaceInfo();
+			App.clearRouteList();
+		}
+	},
+	rememberCityInfo: function(x){
+		var data = JSON.parse(window.localStorage.citiesRoutePoints);
+		data.push(x);
+		window.localStorage.citiesRoutePoints = JSON.stringify(data);
+	},
+	rememberPlaceInfo: function(x){
+		var data = JSON.parse(window.localStorage.placesRoutePoints);
+		data[Number(App.glVar.currentLocation.id) - 1].push(x);
+		window.localStorage.placesRoutePoints = JSON.stringify(data);
+	},
+	forgetCityInfo: function(){
+		window.localStorage.citiesRoutePoints = '[]';
+	},
+	forgetPlaceInfo: function(){
+		data = JSON.parse(window.localStorage.placesRoutePoints);
+		data[App.glVar.currentLocation.id - 1] = [];
+		window.localStorage.placesRoutePoints = JSON.stringify(data);
+	},
+	loadingAnimationTurn: function(){
+		$('#loading').fadeToggle(300);
 	}
 }
 App.init();

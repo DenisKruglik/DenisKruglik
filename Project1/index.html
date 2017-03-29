@@ -3,6 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
+	<script src="https://use.fontawesome.com/0e68fa40df.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Bungee" rel="stylesheet">
 	<link rel="stylesheet" href="styles/bootstrap.css">
 	<link rel="stylesheet" href="styles/bootstrap-theme.css">
@@ -18,21 +19,22 @@
 				<li><a href="">Регистрация</a></li>
 				<li><a href="">О нас</a></li>
 			</ul>
-			<img src="images/Hypnotoad.png" class="logo">
 		</nav>
+		<img src="images/Hypnotoad.png" class="logo">
 	</header>
 	<main>
 		<div id="routeinfo">
-			<span>Точки маршрута:</span>
-			<p>
-				<ul class="routePoints"></ul>
-			</p>
+			<h3>Точки маршрута:</h3>
+			<ul class="routePoints"></ul>
 			<input type="button" value="Очистить маршрут" id="cleanroute">
 		</div>
+		<div id="loading"></div>
 		<div class="map" id="map"></div>
 	</main>
 	<footer>
-		<div>Denis Kruglik © 2017.</div>
+		<div>
+			<span>Denis Kruglik © 2017.</span>
+		</div>
 	</footer>
 	<canvas id="canvas" width="36" height="36"></canvas>
 	<script src="scripts/jquery.js"></script>
