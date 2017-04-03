@@ -9,6 +9,11 @@ header{
     z-index: 999;
 }
 
+main{
+	position: relative;
+	min-height: calc(100vh - 41px - 5vh);
+}
+
 img{
 	height: 100px;
 	margin-right: 10px;
@@ -126,13 +131,8 @@ figure{
 
 
 
-body{
-	height: 100vh;
-	overflow: hidden;
-}
-
 nav{
-	background: #00AA72;
+	background: #1F8A67;
 }
 
 nav ul{
@@ -151,16 +151,20 @@ nav li{
 nav li a{
 	display: block;
 	font-size: 15px;
-	text-decoration: none;
+	text-decoration: none !important;
 	color: #60D4AE;
 	height: 100%;
 	padding: 10px;
 	transition: all 0.5s ease-out;
 }
 
+nav li a:visited{
+	color: #60D4AE;
+}
+
 nav li a:hover{
 	text-decoration: none;
-	color: #006E4A;
+	color: #1F8A67;
 	background-color: #35D4A0;
 }
 
@@ -173,7 +177,7 @@ nav li a:hover{
 }
 
 footer{
-	background: #DAE7E3;
+	background: #1F8A67;
 	height: 5vh;
 	width: 100%;
 	font-family: 'Bungee';
@@ -186,22 +190,27 @@ footer{
 	align-items: center;
 }
 
+footer div{
+	color: #60D4AE;
+}
+
 a:visited{
 	text-decoration: none;
-	color: #006E4A;
 }
 
-input[type=button]{
+input[type=button], input[type=submit], input[type=reset]{
 	background: #fff;
     box-shadow: none;
-    border: 1px solid #00AA72;
-    color: #00AA72;
+    border: 1px solid #1F8A67;
+    color: #1F8A67;
     padding: 5px;
-    transition: all 0.5s ease-out;
+    transition: all 0.3s ease-out;
 }
 
-input[type=button]:hover{
-	background: #35D4A0;
+input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover{
+	background: #1F8A67;
+	color: #fff;
+	border: 1px solid #60D4AE;
 }
 
 h1{
@@ -209,17 +218,20 @@ h1{
 }
 
 #routeinfo{
-	background: white;
 	padding: 10px;
 	position: absolute;
 	z-index: 5;
 	right: 0;
-	background: #b7ddbc;
+	background: #fff;
 	box-shadow: 0 0 5px #333;
+	text-align: center;
+	width: 20vw;
+    max-width: 20vw;
 }
 
 #routeinfo h3{
 	margin-top: 5px;
+	color: #1F8A67;
 }
 
 .routePoints{
@@ -230,17 +242,17 @@ h1{
 
 .routePoints li{
 	list-style: none;
-	color: #248024;
+	color: #1F8A67;
 }
 
 .routePoints .city-reference{
-	color: #215b9c;
+	color: #1F8A67;
 	cursor: pointer;
 	transition: all 0.3s;
 }
 
 .city-reference:hover{
-	color: #509cf1;
+	color: #60D4AE;
 }
 
 .fa-long-arrow-down:first-child{
@@ -273,7 +285,129 @@ h1{
     display: none;
 }
 
-@media screen and (max-width: 768px){
+.overlay{
+	position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: rgba(255,255,255,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s;
+}
+
+.signin, .registration{
+	display: none;
+}
+
+.window{
+	background: #fff;
+    padding: 25px 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 2px 1px rgba(204,208,213,0.75);
+    max-width: 450px;
+}
+
+.window form *{
+	margin-bottom: 13px;
+}
+
+.form-header{
+	font-size: 18px;
+    font-weight: bold;
+    line-height: 1.3;
+    padding: 0;
+    margin: 0;
+    padding-bottom: 17px;
+    color: #4e5f6f;
+}
+
+.text-input{
+	padding: 10px 15px;
+    width: 100%;
+    outline: none;
+    border-radius: 4px;
+    font-size: 14px;
+    background: #f2f4f5;
+    color: #97a1aa;
+    border: none;
+}
+
+.remember{
+	font-weight: bold;
+    font-size: 13px;
+    font-family: Roboto,Arial,sans-serif;
+    color: #3f5263;
+    display: block;
+}
+
+input[type=checkbox]{
+	vertical-align: sub;
+}
+
+input[type=submit]{
+	width: 100%;
+}
+
+.about-content aside{
+	position: fixed;
+    left: 15vw;
+    width: 10vw;
+    top: 70px;
+    transition: all 0.3s;
+}
+
+.about-content aside ul{
+	-webkit-padding-start: 0;
+    list-style: none;
+    font-size: 1.5em;
+    line-height: 2.5em;
+    text-decoration: none;
+    font-family: 'Open Sans';
+}
+
+.about-content aside li{
+
+}
+
+.about-content aside a{
+	color: #1F8A67;
+	transition: all 0.3s;
+	text-decoration: none;
+}
+
+.about-content aside a:hover{
+	color: #60D4AE;
+	text-decoration: none;
+}
+
+.about-content main{
+	width: 60vw;
+    margin: 0 15vw 0 25vw;
+    padding: 25px 30px;
+}
+
+.about-content main h1{
+	font-size: 5em;
+	font-family: 'Bungee';
+}
+
+.about-content main h3{
+	font-size: 2.5em;
+	font-family: 'Oswald';
+}
+
+.about-content main p{
+	font-size: 1.3em;
+	font-family: 'Open Sans';
+}
+
+
+@media screen and (max-aspect-ratio:1/1){
+
 	nav li a{
 		padding: 10vh;
 	}
